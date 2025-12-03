@@ -69,8 +69,9 @@ char rx_buff[1];
 uint8_t Welcome[] = "Welcome to Enduring Tatters! press (x) to start. \r\n"; //Data to send
 uint8_t difficulty[] = "Pick which difficulty you want.\r\n(1) Easy\r\n(2) Hard \r\n"; //Data to send
 uint8_t text[] = ""; //Data to send
+uint8_t options[] = "";
 uint8_t screen[] = "";
-
+uint8_t line[] = "\r\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n";
 
 
 
@@ -104,8 +105,7 @@ int changeRoom(char attempt[], char answer[], uint8_t *endCode) {
 	for (int j=0;j<5;j++) {
 		int asciians = (int)answer[j];
 		int asciiatt = (int)attempt[j];
-
-
+		/*
 		asm volatile (
 				"CMP %[r1], %[r2]\n\t"
 				"BEQ final\n\t"
@@ -115,11 +115,11 @@ int changeRoom(char attempt[], char answer[], uint8_t *endCode) {
 				"final:\n\t"
 				:[r0] "+r" (*endCode), [r1] "+r" (asciiatt), [r2] "+r" (asciians)
 		);
+*/
 
-
-		//if (attempt[1]!=final[1]){
-		//	*endCode = 0;
-		//}
+		if (attempt[j]!=answer[j]){
+			*endCode = 0;
+		}
 
 	}
 	return 0;
@@ -224,92 +224,50 @@ int main(void)
 
   uint8_t i = 0;
 
-  uint8_t test3 = 0;
-  uint8_t test4 = 0;
 
   while(1)
   {
-
+/*
 	  if (!init) {
-		  /*
-		uint8_t screen[] = "........................................\r\n"
-							"........................................\r\n"
-							".................................,~,....\r\n"
-							".....,~-_~--  -~___~~--_-_-_  _-~| |....\r\n"
-							".....|~     \/              |/   | |....\r\n"
-							".....|                           | |....\r\n"
-							".....|~                 ^        \ |....\r\n"
-							".....|  o~_            / \       / |....\r\n"
-							".....|~    \ ENDURING TATTERS    | |....\r\n"
-							".....|      \         /    ~^~-_ , |....\r\n"
-							".....|~      -   __~~-          \| |....\r\n"
-							".....|        \_/               /| |....\r\n"
-							".....|~          PRESS X      _/ / |....\r\n"
-							".....|                  \_   /   | |....\r\n"
-							".....|~                   \_/    | |....\r\n"
-							".....|     /\                    '~|....\r\n"
-							".....|~__-~  ~-_~~--~_-~-_---~__-~_)....\r\n"
-							".....| |................................\r\n"
-							".....'~'................................\r\n"
-							"........................................\r\n"
-							"........................................\r\n"
-							"........................................\r\n"
-							"........................................\r\n";
 
 
-		  uint8_t screen[] = "........................................\r\n"
-								"...............................,~,......\r\n"
-								"....,~-_~--~~___~~_  _~~~-__-~~| |......\r\n"
-								"....|~             \\/          | |......\r\n"
-								"....|                 ^        \\ |......\r\n"
-								"....|~               / \\       / |......\r\n"
-								"....|  o~_  Ara'akos Cove      | |......\r\n"
-								"....|~    \\        /     ~^~_  , |......\r\n"
-								"....|      -   __~-          \\ | |......\r\n"
-								"....|~      \\_/              / | |......\r\n"
-								"....|          Press X      /  / |......\r\n"
-								"....|~                \\__-\\/   | |......\r\n"
-								"....|    /\\                    '~|......\r\n"
-								"....|~_-~  ~__~~--~__~_--__~--_~_)......\r\n"
-								"....| |.................................\r\n"
-								"....'~'.................................\r\n"
-								"........................................\r\n";
 
-*/
-		  uint8_t screen[] =  "........................................\r\n"
-		  						"                                        \r\n"
-		  						"                  CN                    \r\n"
-		  						"                  ==      P=player      \r\n"
-		  						"                  ||>                   \r\n"
-		  						"                  ||                    \r\n"
-		  						"                |p|| |                  \r\n"
-		  						"         ==     ======           ==     \r\n"
-		  						"         ||>     /||             ||>    \r\n"
-		  						"         ==     / ||             ==     \r\n"
-		  						"        /||     ( ||            /||     \r\n"
-		  						"       / ||     \\ ||           / ||     \r\n"
-		  						"      /  ||      \\||           ( ||     \r\n"
-		  						"     /(  ||      /||           \\ ||  |>\r\n"
-		  						"    / (  ||     / ||            \\||  |  \r\n"
-		  						"   /  (  ||     ( ||          /-------  \r\n"
-		  						"  /   (  ||     \\ ||         /||||||||  \r\n"
-		  						" /---__  ||      \\||        /|--------  \r\n"
-		  						"/      \\ ||  H    ||       /|-|  CC  `  \r\n"
-		  						"        \\||       ||      /|- |      `  \r\n"
-		  						"         ||   p   ||  ()  |-  :  p - |   \r\n"
-		  						"-____________________________________|  \r\n"
-		  						"  \\:|: |   ||: |     |_|:|:|    | :|:|  \r\n"
-		  						"   \\---| K |---|   A_- |---| CH |----|  \r\n"
-		  						"    \\|o|   |o|o|     |_|:o||    | ||:|  \r\n"
-		  						"     \\-|p/)|---|()p _- |---|  p |p|-/   \r\n"
-		  						"      \\-----|: --------- :|--------/    \r\n"
-		  						"       \\--------------------------/     \r\n"
-		  						"~~~~~~~~\\--:|:--:|:--:|:--:|:--:|/~~~~~~\r\n"
-		  						"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n";
+
+
+		  uint8_t screen[] =  "                                \r\n"
+		  						"                                \r\n"
+		  						"                        CN                    \r\n"
+		  						"                        ==      P=player      \r\n"
+		  						"                        ||>                   \r\n"
+		  						"                        ||                    \r\n"
+		  						"                      |p|| |                  \r\n"
+		  						"               ==     ======           ==     \r\n"
+		  						"               ||>     /||             ||>    \r\n"
+		  						"               ==     / ||             ==     \r\n"
+		  						"              /||     ( ||            /||     \r\n"
+		  						"             / ||     \\ ||           / ||     \r\n"
+		  						"            /  ||      \\||           ( ||     \r\n"
+		  						"           /(  ||      /||           \\ ||  |>\r\n"
+		  						"          / (  ||     / ||            \\||  |  \r\n"
+		  						"         /  (  ||     ( ||          /-------  \r\n"
+		  						"        /   (  ||     \\ ||         /||||||||  \r\n"
+		  						"       /---_(  ||      \\||        /|--------  \r\n"
+		  						"      /      \\ ||   H   ||       /|-|  CC  `  \r\n"
+		  						"  ___/        \\||       ||      /|- |      `  \r\n"
+		  						"     \\_        ||   p   ||  ()  |-  :  p - |   \r\n"
+		  						"       \\___________________________________|  \r\n"
+		  						"        \\:|: |   ||: |     |_|:|:|    | :|:|  \r\n"
+		  						"         \\---| K |---|   A_- |---| CH |----|  \r\n"
+		  						"          \\|o|   |o|o|     |_|:o||    | ||:|  \r\n"
+		  						"           \\-|p/)|---|()p _- |---|  p |p|-/   \r\n"
+		  						"            \\-----|: --------- :|--------/    \r\n"
+		  						"             \\--------------------------/     \r\n"
+		  						"~~~~~~~~~~~~~~\\--:|:--:|:--:|:--:|:--:|/~~~~~~\r\n"
+		  						"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n";
 
 		  	  HAL_UART_Transmit_IT(&huart2,screen,sizeof(screen));
 		  	  init = 1;
-	  }
+	  }*/
 
 
 
@@ -317,7 +275,25 @@ int main(void)
 	  // If the game has not initialized, present player with welcome screen
 	  if (!begin){
 		  if(!init){
-			  HAL_UART_Transmit_IT(&huart2,Welcome,sizeof(Welcome));
+				uint8_t screen[] = "                                        \r\n"
+									"                                 ,~,    \r\n"
+									"     ,~-_~--  -~___~~--_-_-_  _-~| |    \r\n"
+									"     |~     \\/              |/   | |    \r\n"
+									"     |                           | |    \r\n"
+									"     |~                 ^        \\ |    \r\n"
+									"     |  o~_            / \\       / |    \r\n"
+									"     |~    \\ ENDURING TATTERS    | |    \r\n"
+									"     |      \\         /    ~^~-_ , |    \r\n"
+									"     |~      -   __~~-          \\| |    \r\n"
+									"     |        \\_/               /| |    \r\n"
+									"     |~          PRESS X      _/ / |    \r\n"
+									"     |                  \\_   /   | |    \r\n"
+									"     |~                   \\_/    | |    \r\n"
+									"     |     /\\                    '~|    \r\n"
+									"     |~__-~  ~-_~~--~_-~-_---~__-~_)    \r\n"
+									"     | |                                \r\n"
+									"     '~'                                \r\n";
+			  HAL_UART_Transmit_IT(&huart2,screen,sizeof(screen));
 			  init = 1;
 		  }else if(init && !inGame){ // If game initialized but game not started
 			  if(dataAvail && (rx_buff[0]=='x')) {
@@ -329,7 +305,7 @@ int main(void)
 			  askedGameQuestion = 1;
 		  }else if (inGame){
 			  if (dataAvail && (rx_buff[0]=='1')){
-				  uint8_t text[] = "Taking the easy way out \r\n";
+				  uint8_t text[] = "Taking the easy way out. \r\n";
 				  HAL_UART_Transmit_IT(&huart2,text,sizeof(text));
 				  playerAlive = 1;
 				  inGame = 0;
@@ -338,7 +314,7 @@ int main(void)
 				  HAL_Delay(100);
 
 			  }else if (dataAvail && (rx_buff[0]=='2')){
-				  uint8_t text[] = "Best watch your tongue\r\n";
+				  uint8_t text[] = "Enjoy the challenge. \r\n";
 				  HAL_UART_Transmit_IT(&huart2,text,sizeof(text));
 				  playerAlive = 1;
 				  inGame = 0;
@@ -354,7 +330,6 @@ int main(void)
 
 	  while(playerAlive) // The main game loop
 	  {
-
 		  if (strcmp(room,"Captain's Cabin")==0) {		  // Room: ---Captain's Cabin---
 			  if (roomEnter) {
 				uint8_t text[] = "\r\nYou are in the Captain's Cabin\r\n";
@@ -579,12 +554,15 @@ int main(void)
 											dataAvail = 0;
 										}
 										if (i==4) {
+											attempt[4] = '\0';
 											HAL_Delay(50);
 											changeRoom(attempt, answer, &endCode);
 											HAL_Delay(50);
 										    if (endCode) {
-											    uint8_t text[] = "You hear the lock click. Your eyes widen in anticipation as you open the chest. You see the glitter from the gold and jewels and sigh is relief as you have finally eared your stay among the pirates.\r\n(1) Next\r\n";
-											    HAL_UART_Transmit_IT(&huart2,text,sizeof(text));
+											    HAL_UART_Transmit(&huart2,line,sizeof(line),50);
+											    uint8_t text[] = "You hear the lock click. Your eyes widen in anticipation as you open the chest. You see the \r\nglitter from the gold and jewels and sigh is relief as you have finally eared your stay \r\namong the pirates.\r\n(1) Next";
+											    HAL_UART_Transmit(&huart2,text,sizeof(text),50);
+											    HAL_UART_Transmit(&huart2,line,sizeof(line),50);
 											    while (1)
 											    {
 											    	if (dataAvail && (rx_buff[0]=='1')) {
@@ -646,18 +624,24 @@ int main(void)
 
 		  }else if (strcmp(room,"Hull")==0) {		  // Room: ---Hull---
 			  if (roomEnter) {
-				  uint8_t text[] = "\r\nYou are in the Hull\r\n";
+				  uint8_t text[] = "\r\nYou make your way to the hull of the ship and see the bright blue sky along with the sound \r\nof the gentle waves crashing against the ship.\r\n";
 				  HAL_UART_Transmit_IT(&huart2,text,sizeof(text));
 				  roomEnter = 0;
 
 			  }else if (!choice) {
 				  HAL_Delay(100);
 				  if (shine) {
-					  uint8_t text[] = "Where do you want to go?\r\n(1) Worried Crew Member\r\n(2) Sea\r\n(3) Barrel\r\n(4) Somewhere Else\r\n";
-					  HAL_UART_Transmit_IT(&huart2,text,sizeof(text));
+
+					  HAL_UART_Transmit(&huart2,line,sizeof(line),50);
+
+					  uint8_t options[] = "Where do you want to go?\r\n(1) Worried Crew Member\r\n(2) Sea\r\n(3) Barrel\r\n(4) Somewhere Else\r\n";
+					  HAL_UART_Transmit(&huart2,options,sizeof(options),50);
+					  HAL_UART_Transmit(&huart2,line,sizeof(line),50);
 				  }else{
-					  uint8_t text[] = "Where do you want to go?\r\n(1) Worried Crew Member\r\n(2) Sea\r\n(3) Somewhere Else\r\n";
-					  HAL_UART_Transmit_IT(&huart2,text,sizeof(text));
+					  HAL_UART_Transmit(&huart2,line,sizeof(line),50);
+					  uint8_t options[] = "Where do you want to go?\r\n(1) Worried Crew Member\r\n(2) Sea\r\n(3) Somewhere Else";
+					  HAL_UART_Transmit(&huart2,options,sizeof(options),50);
+					  HAL_UART_Transmit(&huart2,line,sizeof(line),50);
 				  }
 				  choice = 1;
 
@@ -795,8 +779,10 @@ int main(void)
 					  while (1)
 					  {
 						  if (!nextRoom) {
-							  uint8_t text[] = "\r\nWhere to next?\r\n(1) Crow's Nest\r\n(2) Armory\r\n(3) Captain's Cabin\r\n";
-							  HAL_UART_Transmit_IT(&huart2,text,sizeof(text));
+							  HAL_UART_Transmit(&huart2,line,sizeof(line),50);
+							  uint8_t text[] = "Where to next?\r\n(1) Crow's Nest\r\n(2) Armory\r\n(3) Captain's Cabin\r\n(4) Go Back";
+							  HAL_UART_Transmit(&huart2,text,sizeof(text),50);
+							  HAL_UART_Transmit(&huart2,line,sizeof(line),50);
 							  nextRoom = 1;
 							  dataAvail = 0;
 						  }else if (nextRoom) {
@@ -820,6 +806,12 @@ int main(void)
 								  strcpy(room, "Captain's Cabin");
 								  nextRoom = 0;
 								  roomEnter = 1;
+								  dataAvail = 0;
+								  choice = 0;
+								  break;
+							  }
+							  else if (dataAvail && (rx_buff[0]=='4')) {
+								  nextRoom = 0;
 								  dataAvail = 0;
 								  choice = 0;
 								  break;
@@ -856,8 +848,14 @@ int main(void)
 					   while (1)
 					   {
 						   if (!chef) {
-							   uint8_t text[] = "\r\nThe chef quickly moves around the kitchen. He is covered in sweat rummaging \r\naround the small kitchen desperately trying to find something.\r\n\r\nWhat do you want to do?\r\n(1) Talk\r\n(2) Go Back\r\n";
-							   HAL_UART_Transmit_IT(&huart2,text,sizeof(text));
+							   uint8_t text[] = "\r\nThe chef quickly moves around the kitchen. He is covered in sweat rummaging \r\naround the small kitchen desperately trying to find something.\r\n";
+							   HAL_UART_Transmit(&huart2,text,sizeof(text),50);
+
+							   HAL_UART_Transmit(&huart2,line,sizeof(line),50);
+							   uint8_t options[] = "What do you want to do?\r\n(1) Talk\r\n(2) Go Back";
+							   HAL_UART_Transmit(&huart2,options,sizeof(options),50);
+							   HAL_UART_Transmit(&huart2,line,sizeof(line),50);
+
 							   dataAvail = 0;
 							   chef = 1;
 						   }else if (chef) {
