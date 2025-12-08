@@ -518,37 +518,7 @@ int main(void)
 										"    ########     ###                                                                               \r\n"
 										"  /############  /#                                                                                \r\n"
 										" /           ###/                                                                                  \r\n";
-
-
-
-
-/**
- * uint8_t screen[] = "                                                                                                   \r\n"
-										"	  ##### /    ##                               ##### /    ##   ###                    #######   \r\n"
-										"   ######  /  #####                            ######  /  #####    ###     #            /      ### \r\n"
-										"  /#   /  /     #####                         /#   /  /     #####   ###   ###          /        ## \r\n"
-										" /    /  ##     # ##                         /    /  ##     # ##      ##   #           ##       #  \r\n"
-										"	 /  ###     #                                /  ###     #         ##                       /   \r\n"
-										"	##   ##     #    /###   ##   ####           ##   ##     #         ## ###   ###  /###      /    \r\n"
-										"	##   ##     #   / ###  / ##    ###  /       ##   ##     #         ##  ###   ###/ #### /  /     \r\n"
-										"	##   ##     #  /   ###/  ##     ###/        ##   ##     #         ##   ##    ##   ###/  /      \r\n"
-										"	##   ##     # ##    ##   ##      ##         ##   ##     #         ##   ##    ##    ##  /       \r\n"
-										"	##   ##     # ##    ##   ##      ##         ##   ##     #         ##   ##    ##    ##  #       \r\n"
-										"	 ##  ##     # ##    ##   ##      ##          ##  ##     #         ##   ##    ##    ##   ##     \r\n"
-										"	  ## #      # ##    ##   ##      ##           ## #      #         /    ##    ##    ##          \r\n"
-										"	   ###      # ##    ##   ##      /#            ###      /##      /     ##    ##    ##   #      \r\n"
-										"		#########  ######     ######/ ##            #######/ #######/      ### / ###   ### ###     \r\n"
-										"		  #### ###  ####       #####   ##             ####     ####         ##/   ###   ### #      \r\n"
-										"				###                                                                                \r\n"
-										"	########     ###                                                                               \r\n"
-										"  /############  /#                                                                                \r\n"
-										" /           ###/                                                                                  \r\n";
- *
- */
-
-
-					    HAL_UART_Transmit_IT(&huart2,screen,sizeof(screen));
-					  //HAL_UART_Transmit(&huart2,screen,sizeof(screen),1500); // ASCII art for fake end.
+					    HAL_UART_Transmit_IT(&huart2,screen,sizeof(screen)); // ASCII art for fake end.
 					  dataAvail = 0;										// Shows that data has been used.
 				  }
 			  }
@@ -909,7 +879,7 @@ int main(void)
 											HAL_Delay(50);											// Wait for everything to be set.
 										    if (endCode) {
 											    HAL_UART_Transmit(&huart2,line,sizeof(line),50);			// Creates spacing for better visibility.
-											    uint8_t text[] = "You hear the lock click. Your eyes widen in anticipation as you open the chest. You see the \r\nglitter from the gold and jewels and sigh is relief as you have finally eared your stay \r\namong the pirates.\r\n";
+											    uint8_t text[] = "You hear the lock click. Your eyes widen in anticipation as you open the chest. You see the \r\nglitter from the gold and jewels and sigh is relief as your gamble has payed off.\r\n";
 											    HAL_UART_Transmit(&huart2,text,sizeof(text),50);			// Prints text to the terminal.
 
 							    				HAL_UART_Transmit(&huart2,line,sizeof(line),50);			// Creates spacing for better visibility.
