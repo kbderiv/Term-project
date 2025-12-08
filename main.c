@@ -698,8 +698,6 @@ int main(void)
 					 }
 			   }
 
-
-
 		  }else if(strcmp(room,"Map")==0) {		  // Room: ---Map---
 			  if (roomEnter) {
 				  uint8_t text[] = "\r\nYou stand over an old, worn-down map with several symbols around the borders.\r\n";
@@ -877,8 +875,8 @@ int main(void)
 											HAL_Delay(50);											// Wait for everything to be set.
 											checkAns(attempt, answer, &endCode);					// Call a function to check for the right answer.
 											HAL_Delay(50);											// Wait for everything to be set.
+										    HAL_UART_Transmit(&huart2,line,sizeof(line),50);			// Creates spacing for better visibility.
 										    if (endCode) {
-											    HAL_UART_Transmit(&huart2,line,sizeof(line),50);			// Creates spacing for better visibility.
 											    uint8_t text[] = "You hear the lock click. Your eyes widen in anticipation as you open the chest. You see the \r\nglitter from the gold and jewels and sigh is relief as your gamble has payed off.\r\n";
 											    HAL_UART_Transmit(&huart2,text,sizeof(text),50);			// Prints text to the terminal.
 
@@ -915,8 +913,15 @@ int main(void)
 
 											    }
 										    }else if (!endCode) {
-											    uint8_t options[] = "\r\nThe lock does not open. It seems that combination was wrong.\r\n(1) Go Back\r\n";
-												HAL_UART_Transmit(&huart2,options,sizeof(options),50);			// Prints the different options.
+											    uint8_t text[] = "The lock does not open. It seems that combination was wrong.\r\n";
+												HAL_UART_Transmit(&huart2,text,sizeof(text),50);			// Prints the different options.
+
+							    				HAL_UART_Transmit(&huart2,line,sizeof(line),50);			// Creates spacing for better visibility.
+								 			    uint8_t options[] = "(1) Back";
+											    HAL_UART_Transmit(&huart2,options,sizeof(options),50);			// Prints the different options.
+											    HAL_UART_Transmit(&huart2,line,sizeof(line),50);			// Creates spacing for better visibility.
+
+
 
 											    while (1)
 											    {
@@ -1589,7 +1594,7 @@ int main(void)
 										   break;
 									   }
 									   if (dataAvail && (rx_buff[0]=='1') && food) {
-										   uint8_t text[] = "You do! Here I can give you this for you saving me. [She hands you a beer]\r\n";
+										   uint8_t text[] = "You do! Here I can give you this for you saving me. [She hands you a key]\r\n";
 										   HAL_UART_Transmit(&huart2,text,sizeof(text),50);			// Prints text to the terminal.
 
 										   HAL_UART_Transmit(&huart2,line,sizeof(line),50);			// Creates spacing for better visibility.
