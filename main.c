@@ -909,6 +909,9 @@ int main(void)
 																				" /           ###/                                                                           \r\n";
 														    HAL_UART_Transmit_IT(&huart2,screen,sizeof(screen));
 														    dataAvail = 0;										// Shows that data has been used.
+														    while (1)
+														    {
+														    }
 											    	}
 
 											    }
@@ -1014,7 +1017,7 @@ int main(void)
 					  while(1)
 					  {
 						  if (!worriedCrewmember) {
-							  uint8_t text[] = "The crew member has a scared look on his face\r\n";
+							  uint8_t text[] = "The crew member has a scared look on his face.\r\n";
 							  HAL_UART_Transmit(&huart2,text,sizeof(text),50);			// Prints text to the terminal.
 
 							  HAL_UART_Transmit(&huart2,line,sizeof(line),50);			// Creates spacing for better visibility.
@@ -1841,7 +1844,8 @@ int main(void)
 													   dataAvail = 0;										// Shows that data has been used.
 													   dialogue = 1;										// Goes to new dialogue.
 													   kaleidoscope += 1;									// 1 piece of the kaleidoscope has been found.
-													   gunbeer = 1;
+													   beer = 0;											// Player uses beer.
+													   gunbeer = 1;											// Logic for special dialogue for gunner.
 												   }else if (dataAvail && (rx_buff[0]=='2') && !dialogue) {
 													   dataAvail = 0;										// Shows that data has been used.
 													   gunner = 0;											// Ends the dialogue loop for the gunner.
@@ -1951,7 +1955,8 @@ int main(void)
 													   dataAvail = 0;										// Shows that data has been used.
 													   dialogue = 1;										// Goes to new dialogue.
 													   kaleidoscope += 1;									// 1 piece of the kaleidoscope has been found.
-													   gunbeer = 1;
+													   beer = 0;											// Player uses beer.
+													   gunbeer = 1;											// Logic special dialogue for the gunner.
 												   }else if (dataAvail && (rx_buff[0]=='2') && !dialogue) {
 													   dataAvail = 0;										// Shows that data has been used.
 													   gunner = 0;											// Ends the dialogue loop for the gunner.
