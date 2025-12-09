@@ -66,13 +66,14 @@ static void MX_DMA_Init(void);
 volatile uint8_t dataAvail = 0;										// Shows that data has been used.			// Used to determine when a button has been pressed.
 char rx_buff[1];						// Buffer used to get user input.
 uint8_t difficulty[] = "Pick which difficulty you want.\r\n(1) Easy\r\n(2) Hard \r\n"; // String to get difficulty.
-uint8_t characterName[] = "\r\nWhat name do you want to give you character? (Max 100 characters)\r\n(Press ENTER to continue)\r\n\r\n";		// Array used to ask for character name.
+uint8_t characterName[] = "\r\nWhat name do you want to give your character? (Max 100 characters)\r\n(Press ENTER to continue)\r\n\r\n";		// Array used to ask for character name.
 uint8_t askJob[] = "What job do you want have?\r\n"; // An array used to ask for the characters job.
-uint8_t tip[] =	"\r\nWhen in the main area of each room, you can press the 'i' key to open the inventory.\r\n(Press ENTER to continue)\r\n";					// Array used to tell the user about the items.
+uint8_t tip[] =	"When in the main area of each room, you can press the 'i' key to open the inventory.\r\n(Press ENTER to continue)\r\n";					// Array used to tell the user about the items.
 uint8_t text[] = "";				 // An array used to send messages to the terminal.
 uint8_t options[] = "";				 // An array used to send questions for formatting.
 uint8_t screen[] = "";				 // An array used to print ASCII art.
 uint8_t line[] = "\r\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n"; // String for formating.
+
 
 
 int items(uint8_t kaleidoscope, uint8_t key, uint8_t beer, uint8_t food, uint8_t hammer, uint8_t rag, uint8_t rope, uint8_t locket) {	// Function to print items
@@ -325,7 +326,7 @@ int main(void)
 			  }
 			  i = 0;											// Reseting the iterator.
 			  dialogue += 1;										// Goes to new dialogue.
-			  HAL_Delay(50);
+			  HAL_Delay(50);											// Wait for everything to be set.
 			  HAL_UART_Transmit(&huart2,"\r\n",sizeof("\r\n"), 50);			// Creates a new line for better visibility.
 		  }else if  (dialogue==3) {
 			  HAL_UART_Transmit(&huart2,askJob,sizeof(askJob),50);				// Gives the user a tip about the game.
@@ -351,8 +352,6 @@ int main(void)
 			  }
 			  dialogue += 1;										// Goes to new dialogue.
 			  HAL_UART_Transmit(&huart2,"\r\n",sizeof("\r\n"), 50);			// Creates a new line for better visibility.
-
-
 		  }else if  (dialogue==4) {
 			  HAL_UART_Transmit(&huart2,tip,sizeof(tip),50);				// Gives the user a tip about the game.
 			  while (1)
@@ -399,7 +398,7 @@ int main(void)
 			  HAL_UART_Transmit(&huart2,name,strlen(name),100);					// Prints the name of player character.
 			  HAL_UART_Transmit_IT(&huart2,"?\r\n",sizeof("?\r\n"));			// Prints text to the terminal.
 
-			  HAL_Delay(50);
+			  HAL_Delay(50);											// Wait for everything to be set.
 			  HAL_UART_Transmit(&huart2,line,sizeof(line),50);			// Creates spacing for better visibility.
 			  uint8_t options[] = "(1) Yes";
 			  HAL_UART_Transmit(&huart2,options,sizeof(options),50);			// Prints the different options.
@@ -490,7 +489,7 @@ int main(void)
 					  break;
 				  }
 			  }
-			  HAL_Delay(50);
+			  HAL_Delay(50);											// Wait for everything to be set.
 		  }else if (dialogue==9) {
 			  uint8_t text[] = "\r\nYou watch as he leaves the store. You wonder if you made the right choice not taking that big of a risk.\r\n(Press ENTER to continue)\r\n";
 			  HAL_UART_Transmit(&huart2,text,sizeof(text),50);			// Prints text to the terminal.
@@ -1113,7 +1112,7 @@ int main(void)
 					  while (1)
 					  {
 						  if (!dialogue) {
-							  uint8_t text[] = "You look out into the vast open sea wondering If you would really get anthing out of beging here\r\n";
+							  uint8_t text[] = "You look out into the vast open sea wondering if you would really get anything out of taking this job.\r\n";
 							  HAL_UART_Transmit(&huart2,text,sizeof(text),50);			// Prints text to the terminal.
 
 							  HAL_UART_Transmit(&huart2,line,sizeof(line),50);			// Creates spacing for better visibility.
@@ -1397,7 +1396,7 @@ int main(void)
 					   {
 						   if (!storageBox) {
 							   if (hammer) {
-								   uint8_t text[] = "You see and wooden storage box the top completely off from it hinges. Next to the box you see an old stained note that reads 'This will be fix by next week'. By the looks of the note it has probably been here longer than 1 week.\r\n";
+								   uint8_t text[] = "You see a wooden storage box with its top completely off from it hinges. Next to the box you see an old stained note that reads 'This will be fix by next week'. By the looks of the note it has probably been here longer than 1 week.\r\n";
 								   HAL_UART_Transmit(&huart2,text,sizeof(text),50);			// Prints text to the terminal.
 
 								   HAL_UART_Transmit(&huart2,line,sizeof(line),50);			// Creates spacing for better visibility.
@@ -1405,7 +1404,7 @@ int main(void)
 								   HAL_UART_Transmit(&huart2,options,sizeof(options),50);			// Prints the different options.
 								   HAL_UART_Transmit(&huart2,line,sizeof(line),50);			// Creates spacing for better visibility.
 							   }else{
-								   uint8_t text[] = "You see and wooden storage box the top completely off from it hinges. Next to the box you see an old stained note that reads 'This will be fix by next week'. By the looks of the note it has probably been here longer than 1 week.\r\n";
+								   uint8_t text[] = "You see a wooden storage box with its top completely off from it hinges. Next to the box you see an old stained note that reads 'This will be fix by next week'. By the looks of the note it has probably been here longer than 1 week.\r\n";
 								   HAL_UART_Transmit(&huart2,text,sizeof(text),50);			// Prints text to the terminal.
 
 								   HAL_UART_Transmit(&huart2,line,sizeof(line),50);			// Creates spacing for better visibility.
